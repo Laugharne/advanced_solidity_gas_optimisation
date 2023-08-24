@@ -68,7 +68,26 @@ These variables don't get moved around.
 
 So once you allocate a particular storage slot to belong to a certain variable, it does not get altered later on.
 
-![](2023-08-01-15-34-37.png)
+```solidity
+pragma solidity 0.8.7;
+
+contract Storage {
+
+    uint256 private c = 99;
+    uint256 private b = 13;
+    uint256 private a = 2;
+
+    function getAtSlot(uint256 slot) external view returns(uint256) {
+        uint256 value;
+
+        assembly {
+            value := sload(slot)
+        }
+
+        return value;
+    }
+}
+```
 
 The reason why these addresses or slots matter is because this is how the Etherium virtual machine knows which value to access.
 
