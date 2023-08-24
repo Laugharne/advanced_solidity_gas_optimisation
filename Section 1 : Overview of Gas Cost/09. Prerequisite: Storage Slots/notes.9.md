@@ -7,8 +7,25 @@ Now, this is not going to be a complete tutorial.
 
 It's just going to be enough information so that we can keep going and get an intuition about how to understand the up codes that are generated from the smart contract.
 
-![](2023-08-01-15-34-20.png)
 
+```solidity
+pragma solidity 0.8.7;
+
+contract Storage {
+
+    uint256 private a;
+
+    function storageLocation() external pure returns(uint256) {
+        uint256 slotLocation;
+
+        assembly {
+            slotLocation := a.slot
+        }
+
+        return slotLocation;
+    }
+}
+```
 We have a storage variable that we are curious about the address of and the storage, and we're going to get the slot location and return it.
 
 Now, regular solidity can't do this.
